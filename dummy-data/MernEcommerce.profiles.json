@@ -1,0 +1,23 @@
+[{
+    "_id": {
+      "$oid": "65740be53527bb00fce9c37e"
+    },
+    "userID": {
+        "$oid": "64f865337f12bc50f718d79a"
+      },
+    "cus_add": "Lorem Ipsum is simply dummy text",
+    "cus_city": "Dhaka",
+    "cus_country": "BanglaDesh",
+    "cus_fax": "258787",
+    "cus_name": "Boni Amin",
+    "cus_phone": "01317860472",
+    "cus_postcode": "3020",
+    "cus_state": "Shlhet",
+    "ship_add": "Shlhet",
+    "ship_city": "Shlhet",
+    "ship_country": "Shlhet",
+    "ship_name": "Boni Amin",
+    "ship_phone":"12548",
+    "ship_postcode": "5647",
+    "ship_state": "Sunamganj"
+  }]
