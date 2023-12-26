@@ -5,13 +5,15 @@ exports.UserOTP=async (req,res)=>{
     return res.status(200).json(result);
 };
  
+
+
 exports.VerifyLogin=async (req,res)=>{
     let result=await VerifyOTPService(req)
 
     if(result['status']==="success"){
 
         // Cookies Option
-        let cookieOption={expires:new Date(Date.now()+24*6060*1000), httpOnly:false}
+        let cookieOption={expires:new Date(Date.now()+24*6060*1000), httpOnly:false};
 
         // Set Cookies With Response
         res.cookie('token',result['token'],cookieOption)
@@ -23,27 +25,28 @@ exports.VerifyLogin=async (req,res)=>{
 }
 
 
+
 exports.UserLogout=async (req,res)=>{
     let cookieOption={expires:new Date(Date.now()-24*6060*1000), httpOnly:false}
     res.cookie('token',"",cookieOption)
-    return res.status(200).json({status:"success"})
-}
+    return res.status(200).json({status:"success"});
+};
 
 
 exports.CreateProfile=async (req,res)=>{
-    let result=await SaveProfileService(req)
-    return res.status(200).json(result)
-}
+    let result=await SaveProfileService(req);
+    return res.status(200).json(result);
+};
 
 
 exports.UpdateProfile=async (req,res)=>{
-    let result=await SaveProfileService(req)
-    return res.status(200).json(result)
-}
+    let result=await SaveProfileService(req);
+    return res.status(200).json(result);
+};
 
 
 exports.ReadProfile=async (req,res)=>{
-    let result=await ReadProfileService(req)
-    return res.status(200).json(result)
-}
+    let result=await ReadProfileService(req);
+    return res.status(200).json(result);
+};
 

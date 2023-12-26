@@ -1,15 +1,18 @@
 const EmailSend = require("../utility/EmailHelper");
-const UserModel=require("../models/UserModel")
-const ProfileModel=require("../models/ProfileModel")
+const UserModel=require("../models/UserModel");
+const ProfileModel=require("../models/ProfileModel");
 
 const {EncodeToken} = require("../utility/TokenHelper");
 
+
+
 const UserOTPService = async (req) => {
+    
      try {
          let email=req.params.email;
          let code=Math.floor(100000+Math.random()*900000);
 
-         let EmailText=`Your Verification Code is= ${code}`;
+         let EmailText=`Your Verification Code is = ${code}`;
          let EmailSubject='Email Verification';
 
          await EmailSend(email,EmailText,EmailSubject);
@@ -17,10 +20,15 @@ const UserOTPService = async (req) => {
          await UserModel.updateOne({email:email},{$set:{otp:code}},{upsert:true});
 
          return {status:"success", message:"6 Digit OTP has been send"};
+
      }catch (e) {
          return {status:"fail", message:"Something Went Wrong"};
      };
+
 };
+
+
+
 
 const VerifyOTPService = async (req) => {
 
@@ -36,7 +44,7 @@ const VerifyOTPService = async (req) => {
             let user_id=await UserModel.find({email:email,otp:otp}).select('_id');
 
             // User Token Create
-            let token=EncodeToken(email,user_id[0]['_id'].toString())
+            let token=EncodeToken(email,user_id[0]['_id'].toString());
 
             // OTP Code Update To 0
             await UserModel.updateOne({email:email},{$set:{otp:"0"}});
@@ -53,7 +61,7 @@ const VerifyOTPService = async (req) => {
     }
 
 
-}
+};
 
 
 
@@ -63,12 +71,12 @@ const SaveProfileService = async (req) => {
        let user_id=req.headers.user_id;
        let reqBody=req.body;
        reqBody.userID=user_id;
-       await ProfileModel.updateOne({userID:user_id},{$set:reqBody},{upsert:true})
-       return {status:"success", message:"Profile Save Success"}
+       await ProfileModel.updateOne({userID:user_id},{$set:reqBody},{upsert:true});
+       return {status:"success", message:"Profile Save Success"};
    }catch (e) {
-       return {status:"fail", message:"Something Went Wrong"}
-   }
-}
+       return {status:"fail", message:"Something Went Wrong"};
+   };
+};
 
 
 
@@ -77,7 +85,7 @@ const SaveProfileService = async (req) => {
 const ReadProfileService = async (req) => {
     try {
         let user_id=req.headers.user_id;
-        let result= await ProfileModel.find({userID:user_id})
+        let result= await ProfileModel.find({userID:user_id});
         return {status:"success", data:result}
     }catch (e) {
         return {status:"fail", message:"Something Went Wrong"}
