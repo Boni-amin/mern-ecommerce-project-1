@@ -3,9 +3,12 @@ const ProductController=require('../controllers/ProductController');
 const UserController=require('../controllers/UserController');
 const WishListController=require('../controllers/WishListController');
 const CartListController=require('../controllers/CartListController');
+const InvoiceController=require('../controllers/InvoiceController');
+const FeaturesController = require("../controllers/FeaturesController");
+
+
 
 const AuthVerification=require('../middlewares/AuthVerification');
-
 
 const router=express.Router();
 
@@ -46,6 +49,29 @@ router.post('/SaveCartList',AuthVerification,CartListController.SaveCartList);
 router.post('/RemoveCartList',AuthVerification,CartListController.RemoveCartList);
 router.post('/UpdateCartList/:cartID',AuthVerification,CartListController.UpdateCartList);
 router.get('/CartList',AuthVerification,CartListController.CartList);
+
+
+
+
+// Invoice & Payment
+router.get('/CreateInvoice',AuthVerification,InvoiceController.CreateInvoice);
+router.get('/InvoiceList',AuthVerification,InvoiceController.InvoiceList);
+router.get('/InvoiceProductList/:invoice_id',AuthVerification,InvoiceController.InvoiceProductList);
+
+router.post('/PaymentSuccess/:trxID',InvoiceController.PaymentSuccess);
+router.post('/PaymentCancel/:trxID',InvoiceController.PaymentCancel);
+router.post('/PaymentFail/:trxID',InvoiceController.PaymentFail);
+router.post('/PaymentIPN/:trxID',InvoiceController.PaymentIPN);
+
+
+
+
+// Features
+router.get('/FeaturesList',FeaturesController.FeaturesList);
+
+// Create Review
+router.post('/CreateReview',AuthVerification,ProductController.CreateReview);
+
 
 
 

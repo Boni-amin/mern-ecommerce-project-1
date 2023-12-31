@@ -223,7 +223,31 @@ const ReviewListService = async (req) => {
     }catch (e) {
         return {status:"fail",data:e}.toString()
     }
-}
+};
+
+
+
+const CreateReviewService = async (req) => {
+    try{
+        let user_id=req.headers.user_id;
+        let reqBody=req.body;
+        let data=await ReviewModel.create({
+             productID:reqBody['productID'],
+             userID:user_id,
+             des:reqBody['des'],
+             rating:reqBody['rating'],
+         });
+        return {status:"success",data:data};
+    }
+    catch (e) {
+        return {status:"fail",data:e}.toString();
+    };
+
+};
+
+
+
+
 
 
 module.exports={
@@ -236,5 +260,6 @@ module.exports={
     ListBySmilierService,
     ListByKeywordService,
     DetailsService,
-    ReviewListService
+    ReviewListService,
+    CreateReviewService
 }
