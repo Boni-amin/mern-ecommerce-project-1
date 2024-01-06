@@ -5,9 +5,18 @@
 
 
 
+## Fontend Project --- 
+ 1. create react new app Vite (npm create vite@latest ) ( cd client npm install npm run dev)
+ 2. all package install kora -- npm i ( axios , bootstrap , react-bootstrap , react-dom , react-router-dom , react-hot-toast, html-react-parser, lottie-react, zustand, react-star-ratings, react-loading-skeleton, react-image-gallery, sweetalert2 etc ) -- state manage korar jonno (npm i zustand ) add to card korar somoy ata use kora hoi.
+ 3. Command -- npm run build, npm run dev.  
+ 4. File structure---
+	- 
+ 5. 
 
-
-
+-------------------
+1. file fulder manage kora .
+2. React er prothom kaj holo store manage kora and api call kora .
+3. 
 
 
 

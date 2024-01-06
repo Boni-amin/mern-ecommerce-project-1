@@ -1,33 +1,47 @@
 
-const BrandModel=require('../models/BrandModel')
-const CategoryModel=require('../models/CategoryModel')
-const ProductSliderModel=require('../models/ProductSliderModel')
-const ProductModel=require('../models/ProductModel')
-const ProductDetailModel=require('../models/ProductDetailModel')
-const ReviewModel=require('../models/ReviewModel')
+const BrandModel=require('../models/BrandModel');
+const CategoryModel=require('../models/CategoryModel');
+const ProductSliderModel=require('../models/ProductSliderModel');
+const ProductModel=require('../models/ProductModel');
+const ProductDetailModel=require('../models/ProductDetailModel');
+const ReviewModel=require('../models/ReviewModel');
 const mongoose =require('mongoose');
 
 const ObjectId=mongoose.Types.ObjectId;
 
 
+
+
+
 const BrandListService = async () => {
         try {
            let data= await BrandModel.find();
-           return {status:"success",data:data}
+           return {status:"success",data:data};
         }
         catch (e) {
-            return {status:"fail",data:e}.toString()
-        }
-}
+            return {status:"fail",data:e}.toString();
+        };
+};
+
+
+
+
 const CategoryListService = async () => {
     try {
         let data= await CategoryModel.find();
-        return {status:"success",data:data}
+        return {status:"success",data:data};
     }
     catch (e) {
-        return {status:"fail",data:e}.toString()
-    }
-}
+        return {status:"fail",data:e}.toString();
+    };
+
+};
+
+
+
+
+
+
 const SliderListService = async () => {
     try {
         let data= await ProductSliderModel.find();
@@ -177,27 +191,27 @@ const DetailsService = async (req) => {
 const ListByKeywordService = async (req) => {
     try{
         let SearchRegex={"$regex":req.params.Keyword, "$options":"i"} // here option Case sensative . Capital or lowerCase.
-        let SearchParams=[{title:SearchRegex},{shortDes:SearchRegex}]
-        let SearchQuery={$or:SearchParams}
+        let SearchParams=[{title:SearchRegex},{shortDes:SearchRegex}];
+        let SearchQuery={$or:SearchParams};
 
-        let MatchStage={$match:SearchQuery}
+        let MatchStage={$match:SearchQuery};
 
         let JoinWithBrandStage= {$lookup:{from:"brands",localField:"brandID",foreignField:"_id",as:"brand"}};
         let JoinWithCategoryStage={$lookup:{from:"categories",localField:"categoryID",foreignField:"_id",as:"category"}};
         let UnwindBrandStage={$unwind:"$brand"}
         let UnwindCategoryStage={$unwind:"$category"}
-        let ProjectionStage={$project:{'brand._id':0,'category._id':0,'categoryID':0,'brandID':0}}
+        let ProjectionStage={$project:{'brand._id':0,'category._id':0,'categoryID':0,'brandID':0}};
 
         let data= await  ProductModel.aggregate([
             MatchStage, JoinWithBrandStage,JoinWithCategoryStage,
             UnwindBrandStage,UnwindCategoryStage,ProjectionStage
         ])
-        return {status:"success",data:data}
+        return {status:"success",data:data};
     }catch (e) {
-        return {status:"fail",data:e}.toString()
-    }
+        return {status:"fail",data:e}.toString();
+    };
 
-}
+};
 
 
 

@@ -157,12 +157,12 @@ return {status:"success",data: SSLRes.data};
 const PaymentSuccessService = async (req)=>{
     try{
         let trxID= req.params.trxID;
-        await InvoiceModel.updateOne({tran_id:trxID},{payment_status:"success"})
-        return {status:"payment success"}
+        await InvoiceModel.updateOne({tran_id:trxID},{payment_status:"success"});
+        return {status:"payment success"};
     }catch (e) {
-        return {status:"fail", message:"Something Went Wrong"}
-    }
-}
+        return {status:"fail", message:"Something Went Wrong"};
+    };
+};
 
 
 const PaymentFailService = async (req)=>{
@@ -193,7 +193,7 @@ const PaymentCancelService = async (req)=>{
 const PaymentIPNService = async (req)=>{
     try{
         let trxID= req.params.trxID;
-        let status=req.body['status']
+        let status=req.body['status'];
         await InvoiceModel.updateOne({tran_id:trxID},{payment_status:status})
         return {status:"payment fail"}
     }catch (e) {
@@ -249,4 +249,4 @@ module.exports={
     PaymentSuccessService,
     InvoiceListService,
     InvoiceProductListService
-}
+};

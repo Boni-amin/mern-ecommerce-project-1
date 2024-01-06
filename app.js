@@ -39,10 +39,9 @@ const limiter= rateLimit({windowMs:15*60*1000,max:3000});
 app.use(limiter);
 
 
+app.set('etag', false); // turn off  / Cass data off 
+// Add Backend Routing 
 app.use("/api/v1",router);
-
-app.use(express.static('client/dist'));
-
 
 
 // app.get("/", (req, res) => {
@@ -50,9 +49,14 @@ app.use(express.static('client/dist'));
 // });
 
 
+// Here Backend ke bole dewya holo je Fontend kotai ace 
+// React er dist File ke use kora hocee 
+app.use(express.static('client/dist'));
 // Add React Front End Routing
 app.get('*',function (req,res) {
-    res.sendFile(path.resolve(__dirname,'client','dist','index.html'))
+    res.sendFile(path.resolve(__dirname,'client','dist','index.html'));
 });
+
+
 
 module.exports=app;
